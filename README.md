@@ -1,4 +1,4 @@
-# TMP MINIMAL APP
+# TMP TS BACKEND M
 
 # deploy and install
 
@@ -11,9 +11,7 @@ yarn gen-grpc-types
 # run dev
 
 ```sh
-yarn dev:one
-# or
-yarn dev:two
+yarn dev:server
 ```
 
 # build
@@ -21,15 +19,11 @@ yarn dev:two
 ```sh
 yarn build
 # or
-yarn build:one
-# or
-yarn build:two
+yarn build:server
 ```
 
 # run prod
 
 ```sh
-yarn prod:one
-# or
-yarn prod:two
+yarn prod:server
 ```
