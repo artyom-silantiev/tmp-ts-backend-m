@@ -5,16 +5,17 @@ import { AppController } from './app.controller';
 import { AppCronService } from './app_cron.service';
 
 export const AppModule = defineModule((ctx) => {
-  const appController = ctx.use(() => new AppController());
-  const cronService = ctx.use(() => new AppCronService());
-  const appGrpc = ctx.use(() => new AppGrpc());
+  const appController = new AppController();
+  const cronService = new AppCronService();
+  const appGrpc = new AppGrpc();
 
   ctx.onModuleInit(() => {
     useCronService(cronService);
   });
 
-  return {
+  return ctx.uses({
     appController,
     cronService,
-  };
+    appGrpc,
+  });
 });

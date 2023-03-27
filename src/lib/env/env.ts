@@ -34,6 +34,11 @@ export enum NodeAppType {
   APP = 'APP',
 }
 
+export enum ClusterAppType {
+  Cli = 'cli',
+  Server = 'server',
+}
+
 const E = process.env;
 
 let onlyDefault = false;
@@ -49,6 +54,7 @@ export class Env {
   NODE_PROTOCOL = toEnum(E.NODE_PROTOCOL, Object.values(Protocol), Protocol.http) as Protocol;
   NODE_APP_INDEX = NODE_APP_INDEX;
   NODE_APP_TYPE = NODE_APP_TYPE;
+  NODE_CLUSTER_APP_TYPE = toEnum(E.NODE_CLUSTER_APP_TYPE, Object.values(ClusterAppType), ClusterAppType.Server) as ClusterAppType;
   NODE_ROLE = toEnum(E.NODE_ROLE, Object.values(NodeRole), NodeRole.MASTER) as NodeRole;
 
   DIR_DATA = toPath(E.DIR_DATA, './data/data');
