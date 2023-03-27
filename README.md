@@ -5,7 +5,9 @@
 ```sh
 cp .env.default .env
 yarn
+docker-compose up -d # for dev
 yarn gen-grpc-types
+yarn deploy
 ```
 
 # run dev

@@ -11,7 +11,8 @@
     "prod:server": "node dist/one.js",
     "build:server": "BUILD_APP=one tsup-node --config tsup.config.ts",
     "": "",
-    "devs": "prisma migrate dev",
+    "deploy": "prisma migrate dev && yarn seeder",
+    "seeder": "ts-node -r tsconfig-paths/register src/cli/seeder.ts",
     "migrate_dev": "prisma migrate dev",
     "migrate_prod": "npx prisma generate && prisma migrate deploy",
     "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/*.proto"

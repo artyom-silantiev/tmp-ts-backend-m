@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { onAppStart, parseItemForGRPC } from './grpc/server';
 import { defineModule, ModuleSetup, modules } from './module';
 
@@ -12,7 +13,9 @@ function listenExit() {
           await moduleItem.onModuleDestroy();
         }
       }
+    }
 
+    for (const moduleWrap of modules) {
       if (moduleWrap.meta.destroyHandler) {
         await moduleWrap.meta.destroyHandler();
       }
@@ -37,11 +40,9 @@ export function defineApplication<T>(setup: ModuleSetup<T>) {
   const appModule = defineModule(setup);
 
   async function run() {
-    for (const moduleWrap of modules) {
-      if (moduleWrap.meta.initHandler) {
-        await moduleWrap.meta.initHandler();
-      }
+    listenExit();
 
+    for (const moduleWrap of modules) {
       for (const moduleItem of moduleWrap.meta.items) {
         if (
           typeof moduleItem === 'object' &&
@@ -56,9 +57,13 @@ export function defineApplication<T>(setup: ModuleSetup<T>) {
       });
     }
 
-    onAppStart();
+    for (const moduleWrap of modules) {
+      if (moduleWrap.meta.initHandler) {
+        await moduleWrap.meta.initHandler();
+      }
+    }
 
-    listenExit();
+    onAppStart();
   }
 
   return {
