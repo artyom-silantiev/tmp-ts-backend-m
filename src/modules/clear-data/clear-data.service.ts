@@ -2,6 +2,7 @@ import { PrismaService } from '@db/prisma.service';
 import { useEnv } from '@lib/env/env';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import { FilesDefs } from '@modules/files/defs';
 
 export class ClearDataService {
   private env = useEnv();
@@ -96,10 +97,7 @@ export class ClearDataService {
       return false;
     }
 
-    const absPathToFile = path.resolve(
-      /* TODO FilesDefs.DIR */ '',
-      file.pathToFile
-    );
+    const absPathToFile = path.resolve(FilesDefs.DIR, file.pathToFile);
     await fs.remove(absPathToFile);
 
     await this.prisma.file.delete({
