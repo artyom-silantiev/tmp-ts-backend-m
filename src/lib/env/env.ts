@@ -75,6 +75,15 @@ export class Env {
   REDIS_PORT = toInt(E.REDIS_PORT, 6379);
   REDIS_DB = toInt(E.REDIS_DB, 0);
 
+  // LOCAL_FILES
+  LOCAL_FILES_CACHE_MIN_THUMB_LOG_SIZE = toInt(E.LOCAL_FILES_CACHE_MIN_THUMB_LOG_SIZE, 5);
+  LOCAL_FILES_IMAGE_MAX_SIZE = toInt(E.LOCAL_FILES_IMAGE_MAX_SIZE, 1024 * 1024 * 8); // 8mb
+  LOCAL_FILES_ALLOW_MIME_TYPES = toArrayStrings(E.LOCAL_FILES_ALLOW_MIME_TYPES, ',', ['image/jpeg', 'image/png']);
+  LOCAL_FILES_AUDIO_MAX_SIZE = toInt(E.LOCAL_FILES_AUDIO_MAX_SIZE, 1024 * 1024 * 20); // 20mb
+  LOCAL_FILES_AUDIO_ALLOW_MIME_TYPES = toArrayStrings(E.LOCAL_FILES_AUDIO_ALLOW_MIME_TYPES, ',', ['audio/mp3']);
+  LOCAL_FILES_VIDEO_MAX_SIZE = toInt(E.LOCAL_FILES_VIDEO_MAX_SIZE, 1024 * 1024 * 20); // 20mb
+  LOCAL_FILES_VIDEO_ALLOW_MIME_TYPES = toArrayStrings(E.LOCAL_FILES_VIDEO_ALLOW_MIME_TYPES, ',', ['video/mp4']);
+
   isDevEnv() {
     return this.NODE_ENV === NodeEnvType.development;
   }
@@ -155,7 +164,7 @@ export function toEnum(envParam: string | undefined, enumValues: string[], defau
   return enumValues.indexOf(envParam) >= 0 ? envParam : defaultValue;
 }
 
-export function toArrayStrings(envParam: string, spliter: string, defaultValue: string[]) {
+export function toArrayStrings(envParam: string | undefined, spliter: string, defaultValue: string[]) {
   if (onlyDefault) {
     return defaultValue;
   }

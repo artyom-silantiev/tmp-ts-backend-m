@@ -16,7 +16,7 @@
       "@core/*": ["core/*"],
       "@lib/*": ["lib/*"],
       "@db/*": ["db/*"],
-      "@modules/": ["modules/*"],
+      "@modules/*": ["modules/*"],
       "#grpc/*": ["grpc/*"]
     }
   },

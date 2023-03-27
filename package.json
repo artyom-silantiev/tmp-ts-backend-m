@@ -25,12 +25,14 @@
     "cron": "^2.2.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^11.1.0",
     "hasha": "^5.2.2",
     "ioredis": "^5.3.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.32.0"
   },
   "devDependencies": {
     "@grpc/grpc-js": "^1.8.13",
@@ -38,6 +40,7 @@
     "@types/body-parser": "^1.19.2",
     "@types/cron": "^2.0.1",
     "@types/express": "^4.17.17",
+    "@types/fluent-ffmpeg": "^2.1.21",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.15.10",
