@@ -7,10 +7,14 @@ function listenExit() {
       for (const moduleItem of moduleWrap.meta.items) {
         if (
           typeof moduleItem === 'object' &&
-          typeof moduleItem.onModuleInit === 'function'
+          typeof moduleItem.onModuleDestroy === 'function'
         ) {
-          await moduleItem.onModuleInit();
+          await moduleItem.onModuleDestroy();
         }
+      }
+
+      if (moduleWrap.meta.destroyHandler) {
+        await moduleWrap.meta.destroyHandler();
       }
     }
   }
