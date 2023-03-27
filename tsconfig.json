@@ -13,8 +13,9 @@
     "lib": ["ES2022"],
     "baseUrl": "src",
     "paths": {
-      "@lib/*": ["lib/*"],
       "@core/*": ["core/*"],
+      "@lib/*": ["lib/*"],
+      "@db/*": ["db/*"],
       "#grpc/*": ["grpc/*"]
     }
   },

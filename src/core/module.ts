@@ -23,6 +23,12 @@ function getModuleSetupCtx(meta: ModuleMeta) {
       meta.items.push(item);
       return item;
     },
+    uses<T extends Object>(items: T) {
+      for (const item of Object.values(items)) {
+        meta.items.push(item);
+      }
+      return items;
+    },
     onModuleInit(handler: LifecycleHandler) {
       meta.initHandler = handler;
     },

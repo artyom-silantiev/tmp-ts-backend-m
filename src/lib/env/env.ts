@@ -54,6 +54,17 @@ export class Env {
   DIR_DATA = toPath(E.DIR_DATA, './data/data');
   DIR_TEMP = toPath(E.DIR_TEMP, './data/temp');
 
+  SECRET_PASSWORD_SALT = toString(E.SECRET_PASSWORD_SALT, 'SECRET_PASSWORD_SALT');
+  SECRET_JWT_AUTH = toString(E.SECRET_JWT_AUTH, 'jwtActivationSec');
+  SECRET_JWT_ACTIVATION = toString(E.SECRET_JWT_ACTIVATION, 'jwtActivationSec');
+  SECRET_JWT_RECOVERY = toString(E.JWT_RECOVERY_SECRET, 'jwtUserRecovery');
+
+  JWT_AUTH_TTL_SEC = toInt(E.JWT_AUTH_TTL_SEC, 28800);
+  JWT_ACTIVATION_TTL_SEC = toInt(E.JWT_ACTIVATION_TTL_SEC, 60 * 60 * 24 * 90);
+  JWT_RECOVERY_TTL_SEC = toInt(E.JWT_RECOVERY_TTL_SEC, 60 * 60 * 8);
+
+  DATABASE_URL = toString(E.DATABASE_URL, 'postgresql://postgres:postgres@localhost:5432/postgres?schema=public');
+
   REDIS_HOST = toString(E.REDIS_HOST, 'localhost');
   REDIS_PORT = toInt(E.REDIS_PORT, 6379);
   REDIS_DB = toInt(E.REDIS_DB, 0);

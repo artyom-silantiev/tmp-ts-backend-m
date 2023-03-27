@@ -11,9 +11,15 @@
     "prod:server": "node dist/one.js",
     "build:server": "BUILD_APP=one tsup-node --config tsup.config.ts",
     "": "",
+    "devs": "prisma migrate dev",
+    "migrate_dev": "prisma migrate dev",
+    "migrate_prod": "npx prisma generate && prisma migrate deploy",
     "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/*.proto"
   },
   "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "base-x": "^4.0.0",
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "class-validator": "^0.14.0",
     "cron": "^2.2.0",
@@ -27,6 +33,7 @@
   },
   "devDependencies": {
     "@grpc/grpc-js": "^1.8.13",
+    "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
     "@types/cron": "^2.0.1",
     "@types/express": "^4.17.17",
@@ -38,6 +45,7 @@
     "@typescript-eslint/parser": "^5.56.0",
     "eslint": "^8.36.0",
     "nodemon": "^2.0.22",
+    "prisma": "^4.11.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
     "tsup": "^6.7.0",

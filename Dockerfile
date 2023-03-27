@@ -1,16 +1,19 @@
 FROM node:16-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
+
+RUN apk update && apk add file && apk add --no-cache docker-cli
 
 COPY package*.json ./
-COPY yarn.lock ./
+COPY yarn.lock .
 
 RUN yarn
 
 COPY . .
 
-RUN yarn build
+RUN npx prisma generate
+RUN yarn web:build
 
 EXPOSE 3000
 
-CMD ["yarn", "prod"]
+CMD ["sh", "_run_app.sh"]
