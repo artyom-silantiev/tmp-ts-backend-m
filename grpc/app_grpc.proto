@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+service AppGrpc {
+  rpc hello (Data) returns (Reply) {}
+  rpc throw (Empty) returns (Empty) {}
+  rpc login (LoginRequest) returns (LoginResponce) {}
+  rpc getProfile (Empty) returns (Profile) {}
+
+  rpc uploadFileTest(Empty) returns (UploadFileResponse) {};
+  rpc uploadFile(stream UploadFileRequest) returns (UploadFileResponse) {};
+
+  rpc chatTest(Empty) returns (Empty) {};
+  rpc chat(stream ChatMsg) returns (stream ChatMsg) {};
+}
+
+message Empty {}
+
+message Data {
+  string name = 1;
+}
+
+message Reply {
+  string message = 1;
+}
+
+message LoginRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message LoginResponce {
+  string accessToken = 1;
+}
+
+message Profile {
+  string userId = 1;
+  string name = 2;
+}
+
+message UploadFileRequest {
+  oneof data {
+    FileInfo info = 1;
+    bytes chunk = 2;
+  };
+}
+
+message FileInfo {
+  string name = 1;
+}
+
+message UploadFileResponse {
+  uint32 size = 2;
+}
+
+message ChatMsg {
+  uint32 msg = 1;
+}

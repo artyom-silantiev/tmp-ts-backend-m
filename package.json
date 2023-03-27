@@ -1,0 +1,49 @@
+{
+  "name": "tmp-minimal-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "module": "commonjs",
+  "scripts": {
+    "build": "tsup-node --config tsup.config.ts",
+    "SERVER": "echo 'APP ONE'",
+    "dev:server": "nodemon -r tsconfig-paths/register src/app_one/main.ts",
+    "prod:server": "node dist/one.js",
+    "build:server": "BUILD_APP=one tsup-node --config tsup.config.ts",
+    "": "",
+    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/*.proto"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "class-validator": "^0.14.0",
+    "cron": "^2.2.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.0",
+    "ioredis": "^5.3.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@grpc/grpc-js": "^1.8.13",
+    "@types/body-parser": "^1.19.2",
+    "@types/cron": "^2.0.1",
+    "@types/express": "^4.17.17",
+    "@types/fs-extra": "^11.0.1",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^18.15.10",
+    "@types/yargs": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.2",
+    "yargs": "^17.7.1"
+  },
+  "author": "Artyom Silantiev",
+  "license": "ISC"
+}

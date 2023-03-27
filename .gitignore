@@ -1,0 +1,8 @@
+/node_modules
+/dist
+/.env
+/yarn-error.log
+/src/grpc
+
+/data
+/temp
