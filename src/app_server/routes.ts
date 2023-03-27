@@ -1,5 +1,5 @@
 import { Route } from '@core/router/router';
-import { FilesHttpModule } from './files/files.module';
+import { FilesHttpModule } from './modules/files/files.module';
 
 export default [
   {

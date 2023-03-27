@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package admin;
+
+import "../common.proto";
+
+service AdminBackups {
+  rpc createBackup (Empty) returns (BackupInfo) {}
+  rpc restoreFromBackup (BackupName) returns (Message) {}
+  rpc deleteBackup (BackupName) returns (Message) {}
+  rpc uploadBackup (Empty) returns (Empty) {}
+}
+
+message BackupName {
+  string name = 1;
+}
+
+message BackupInfo {
+  uint32 size = 1;
+  string name = 2;
+  string createdAt = 3;
+}

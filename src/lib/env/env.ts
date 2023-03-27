@@ -71,6 +71,11 @@ export class Env {
 
   DATABASE_URL = toString(E.DATABASE_URL, 'postgresql://postgres:postgres@localhost:5432/postgres?schema=public');
 
+  POSTGRES_HOST = toString(E.POSTGRES_HOST, 'tmp-cool-db');
+  POSTGRES_DB = toString(E.POSTGRES_DB, 'appdb');
+  POSTGRES_USER = toString(E.POSTGRES_USER, 'postgres');
+  POSTGRES_PASSWORD = toString(E.POSTGRES_PASSWORD, 'postgres');
+
   REDIS_HOST = toString(E.REDIS_HOST, 'localhost');
   REDIS_PORT = toInt(E.REDIS_PORT, 6379);
   REDIS_DB = toInt(E.REDIS_DB, 0);

@@ -15,10 +15,11 @@
     "seeder": "ts-node -r tsconfig-paths/register src/cli/seeder.ts",
     "migrate_dev": "prisma migrate dev",
     "migrate_prod": "npx prisma generate && prisma migrate deploy",
-    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/*.proto"
+    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/**/*.proto"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
+    "adm-zip": "^0.5.10",
     "base-x": "^4.0.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@grpc/grpc-js": "^1.8.13",
+    "@types/adm-zip": "^0.5.0",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",
     "@types/cron": "^2.0.1",
