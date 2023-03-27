@@ -3,7 +3,7 @@ import { FilesController } from './files.controller';
 import { defineModule } from '@core/module';
 
 export const FilesHttpModule = defineModule((ctx) => {
-  const filleControoler = new FilesController(FilesModule.filesOutputService);
+  const filesControoler = new FilesController(FilesModule.filesOutputService);
 
-  return ctx.useItems({ filleControoler });
+  return ctx.useItems({ filleControoler: filesControoler });
 });
