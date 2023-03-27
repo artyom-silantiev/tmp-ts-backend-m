@@ -4,7 +4,7 @@ import { ClusterAppService } from './cluster-app.service';
 export const ClusterAppModule = defineModule((ctx) => {
   const clusterAppService = new ClusterAppService();
 
-  return ctx.uses({
+  return ctx.useItems({
     clusterAppService,
   });
 });

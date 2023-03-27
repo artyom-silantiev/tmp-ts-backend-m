@@ -17,7 +17,7 @@ export const DbModule = defineModule((ctx) => {
   const task = new TaskRepository(prisma);
   const user = new UserRepository(prisma);
 
-  return ctx.uses({
+  return ctx.useItems({
     prisma,
 
     fileRef,

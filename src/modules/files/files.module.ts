@@ -16,7 +16,7 @@ export const FilesModule = defineModule((ctx) => {
     filesMakeService
   );
 
-  return ctx.uses({
+  return ctx.useItems({
     filesMakeService,
     filesInputService,
     filesOutputService,

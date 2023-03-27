@@ -12,7 +12,6 @@ import { ChatMsg, ChatMsg__Output } from '#grpc/ChatMsg';
 
 import { GrpcException } from '@core/grpc/catch_grpc_error';
 import { validateDto } from '@core/validator';
-import { LoginDto } from './app.controller';
 import * as grpc from '@grpc/grpc-js';
 import { resolve } from 'path';
 import * as fs from 'fs-extra';
@@ -63,7 +62,7 @@ export class AppGrpc {
 
   @GrpcMethod()
   async login(call) {
-    const body = await validateDto(call, LoginDto);
+    // const body = await validateDto(call, LoginDto);
 
     return {
       accessToken: (Math.random() * 1e6 + 1e6).toString(32),

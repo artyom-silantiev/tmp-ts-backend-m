@@ -78,7 +78,7 @@ defineApplication((ctx) => {
 
   const seederCommand = new SeederCommand(DbModule.prisma, DbModule.user);
 
-  ctx.uses({
+  ctx.useItems({
     seederCommand,
   });
 

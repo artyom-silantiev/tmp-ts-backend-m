@@ -5,7 +5,7 @@ import { ClearDataService } from './clear-data.service';
 export const ClearDataModule = defineModule((ctx) => {
   const clearDataService = new ClearDataService(DbModule.prisma);
 
-  return ctx.uses({
+  return ctx.useItems({
     clearDataService,
   });
 });
