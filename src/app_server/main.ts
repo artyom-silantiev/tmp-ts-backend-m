@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import bodyParser from 'body-parser';
 import { createAppLogger } from '@lib/app_logger';
 import { useEnv } from '@lib/env/env';

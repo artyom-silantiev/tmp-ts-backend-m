@@ -39,7 +39,6 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "nodemailer": "^6.9.1",
-    "reflect-metadata": "^0.1.13",
     "sharp": "^0.32.0"
   },
   "devDependencies": {
