@@ -8,16 +8,17 @@
     "strictPropertyInitialization": false,
     "strict": true,
     "sourceMap": true,
+    "module": "ES2022",
     "target": "ES2022",
     "moduleResolution": "node",
     "lib": ["ES2022"],
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@core/*": ["core/*"],
-      "@lib/*": ["lib/*"],
-      "@db/*": ["db/*"],
-      "@modules/*": ["modules/*"],
-      "#grpc/*": ["grpc/*"]
+      "@core/*": ["src/core/*"],
+      "@lib/*": ["src/lib/*"],
+      "@db/*": ["src/db/*"],
+      "@modules/*": ["src/modules/*"],
+      "#grpc/*": ["src/grpc/*"]
     }
   },
   "exclude": ["node_modules"],

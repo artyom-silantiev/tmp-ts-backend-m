@@ -12,10 +12,12 @@
     "build:server": "BUILD_APP=one tsup-node --config tsup.config.ts",
     "": "",
     "deploy": "prisma migrate dev && yarn seeder",
-    "seeder": "ts-node -r tsconfig-paths/register src/cli/seeder.ts",
     "migrate_dev": "prisma migrate dev",
     "migrate_prod": "npx prisma generate && prisma migrate deploy",
-    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/**/*.proto"
+    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/**/*.proto",
+    "CLI": "echo 'CLI'",
+    "seeder": "ts-node -r tsconfig-paths/register src/cli/seeder.ts",
+    "send_test_email": "ts-node -r tsconfig-paths/register src/cli/send_test_email.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
@@ -29,10 +31,13 @@
     "express": "^4.18.2",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^11.1.0",
+    "handlebars": "^4.7.7",
     "hasha": "^5.2.2",
+    "i18next": "^22.4.13",
     "ioredis": "^5.3.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "nodemailer": "^6.9.1",
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.32.0"
   },
@@ -47,6 +52,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.15.10",
+    "@types/nodemailer": "^6.4.7",
     "@types/yargs": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",

@@ -70,7 +70,6 @@ export class Env {
   JWT_RECOVERY_TTL_SEC = toInt(E.JWT_RECOVERY_TTL_SEC, 60 * 60 * 8);
 
   DATABASE_URL = toString(E.DATABASE_URL, 'postgresql://postgres:postgres@localhost:5432/postgres?schema=public');
-
   POSTGRES_HOST = toString(E.POSTGRES_HOST, 'tmp-cool-db');
   POSTGRES_DB = toString(E.POSTGRES_DB, 'appdb');
   POSTGRES_USER = toString(E.POSTGRES_USER, 'postgres');
@@ -79,6 +78,20 @@ export class Env {
   REDIS_HOST = toString(E.REDIS_HOST, 'localhost');
   REDIS_PORT = toInt(E.REDIS_PORT, 6379);
   REDIS_DB = toInt(E.REDIS_DB, 0);
+
+  FRONT_MAIN_PROTOCOL = toEnum(E.FRONT_MAIN_PROTOCOL, Object.values(Protocol), Protocol.http) as Protocol;
+  FRONT_MAIN_HOST = toString(E.FRONT_MAIN_HOST, 'example.com');
+
+  MAILER_SEND_EMAIL_TYPE = toEnum(E.MAILER_SEND_EMAIL_TYPE, Object.values(SendEmailType), SendEmailType.sync) as SendEmailType;
+  MAILER_QUEUE_DELAY_SEC = toInt(E.MAILER_QUEUE_DELAY_SEC, 10);
+  MAILER_QUEUE_ATTEMPTS = toInt(E.MAILER_QUEUE_ATTEMPTS, 3);
+  MAILER_QUEUE_PACK_SIZE = toInt(E.MAILER_QUEUE_PACK_SIZE, 3);
+  MAILER_DEFAULT_SENDER = toString(E.MAILER_DEFAULT_SENDER, 'No remply <noreply-dev@site.local>');
+  MAILER_SMTP_HOST = toString(E.MAILER_SMTP_HOST, 'localhost');
+  MAILER_SMTP_PORT = toInt(E.MAILER_SMTP_PORT, 1025);
+  MAILER_SMTP_SECURE = toBool(E.MAILER_SMTP_SECURE, false);
+  MAILER_SMTP_AUTH_USER = toString(E.MAILER_SMTP_AUTH_USER, '');
+  MAILER_SMTP_AUTH_PASS = toString(E.MAILER_SMTP_AUTH_PASS, '');
 
   // LOCAL_FILES
   LOCAL_FILES_CACHE_MIN_THUMB_LOG_SIZE = toInt(E.LOCAL_FILES_CACHE_MIN_THUMB_LOG_SIZE, 5);

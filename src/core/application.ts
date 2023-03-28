@@ -4,6 +4,8 @@ import { defineModule, ModuleSetup, modules } from './module';
 
 function listenExit() {
   async function exitHandler(options, exitCode) {
+    console.log(options, exitCode);
+
     for (const moduleWrap of modules) {
       for (const moduleItem of moduleWrap.meta.items) {
         if (

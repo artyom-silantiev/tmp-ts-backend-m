@@ -1,6 +1,5 @@
 import { GrpcMethod, GrpcService } from '@core/grpc/decorators';
 import { BackupsService } from './backups.service';
-import express from 'express';
 import { BackupName__Output } from '#grpc/admin/BackupName';
 import { Message__Output } from '#grpc/common/Message';
 import { BackupInfo__Output } from '#grpc/admin/BackupInfo';
