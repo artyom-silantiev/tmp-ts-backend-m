@@ -1,7 +1,8 @@
-import { Ctx, CtxHandler, HttpException, HttpStatus } from '@core/router';
 import { JwtUser } from './types';
 import { AuthModule } from './auth.module';
 import { UserRole } from '@prisma/client';
+import { HttpException, HttpMiddlewares, HttpStatus } from '@core/http';
+import { Ctx, CtxHandler } from '@core/http/types';
 
 export type CtxWithUser = Ctx & {
   user: JwtUser;
@@ -27,7 +28,7 @@ const authMiddleware: CtxHandler = async (ctx: CtxWithUser) => {
 };
 
 export function AuthGuardHttp() {
-  return [authMiddleware];
+  return HttpMiddlewares([authMiddleware]);
 }
 
 export function RoleGuardHttp(needRole: UserRole) {
@@ -39,5 +40,5 @@ export function RoleGuardHttp(needRole: UserRole) {
     ctx.next();
   };
 
-  return [authMiddleware, roleGuardMiddleware];
+  return HttpMiddlewares([authMiddleware, roleGuardMiddleware]);
 }

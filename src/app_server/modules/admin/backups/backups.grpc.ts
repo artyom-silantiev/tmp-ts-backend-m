@@ -1,8 +1,4 @@
-import {
-  GrpcMethod,
-  GrpcService,
-  GrpcServiceMiddlewares,
-} from '@core/grpc/decorators';
+import { GrpcMethod, GrpcService } from '@core/grpc/decorators';
 import { BackupsService } from './backups.service';
 import { BackupName__Output } from '#grpc/admin/BackupName';
 import { Message__Output } from '#grpc/common/Message';
@@ -11,7 +7,7 @@ import { RoleGuardGrpc } from '@modules/auth/guards-grpc';
 import { UserRole } from '@prisma/client';
 
 @GrpcService('admin/backups.proto', 'AdminBackups')
-@GrpcServiceMiddlewares([...RoleGuardGrpc(UserRole.ADMIN)])
+@RoleGuardGrpc(UserRole.ADMIN)
 export class BackupsGrpc {
   constructor(private backupsService: BackupsService) {}
 

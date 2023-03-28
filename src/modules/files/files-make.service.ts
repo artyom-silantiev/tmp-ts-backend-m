@@ -15,7 +15,7 @@ import { useEnv } from '@lib/env/env';
 import { useBs58 } from '@lib/bs58';
 import { getFileSha256, getMimeFromPath } from '@lib/helpers';
 import { getMediaContentProbe } from '@lib/ffmpeg';
-import { HttpException } from '@core/router';
+import { HttpException } from '@core/http';
 
 export class FilesMakeService {
   private env = useEnv();

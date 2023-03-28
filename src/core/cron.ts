@@ -1,20 +1,23 @@
 import { CronJob } from 'cron';
 import { createLogger } from './logger';
+import { metadata } from './metadata';
 
 const logger = createLogger('Cron');
 
+const sCron = Symbol('Cron');
+const sScheduleHandlers = Symbol('ScheduleHandlers');
+const sQueueJobHandlers = Symbol('QueueJobHandlers');
+
 // @Cron
 
-const sCron = Symbol('Cron');
 export function Cron() {
   return function (target: Function) {
-    Reflect.defineMetadata(sCron, true, target);
+    metadata.set([target, sCron], true);
   } as ClassDecorator;
 }
 
 // @Schedule
 
-const sScheduleHandlers = Symbol('ScheduleHandlers');
 type ScheduleHandler = {
   schedule: string;
   target: Object;
@@ -22,20 +25,8 @@ type ScheduleHandler = {
 };
 
 export function Schedule(schedule: string) {
-  return function (
-    target: Object,
-    key: string | symbol,
-    descriptor: PropertyDescriptor
-  ) {
-    if (!Reflect.hasMetadata(sScheduleHandlers, target)) {
-      Reflect.defineMetadata(sScheduleHandlers, [], target);
-    }
-
-    const scheduleHandlers = Reflect.getMetadata(
-      sScheduleHandlers,
-      target
-    ) as ScheduleHandler[];
-    scheduleHandlers.push({
+  return function (target: Object, key: string | symbol) {
+    metadata.set([target.constructor, sScheduleHandlers, key], {
       schedule,
       target,
       key,
@@ -44,15 +35,16 @@ export function Schedule(schedule: string) {
 }
 
 function useSchedules(cronService: any) {
-  const scheduleHandlers = Reflect.getMetadata(
+  const scheduleHandlers = metadata.get([
+    cronService.constructor,
     sScheduleHandlers,
-    cronService
-  ) as ScheduleHandler[];
-  if (!scheduleHandlers || scheduleHandlers.length === 0) {
+  ]) as Map<string, ScheduleHandler>;
+
+  if (!scheduleHandlers || scheduleHandlers.size === 0) {
     return;
   }
 
-  for (const scheduleHandler of scheduleHandlers) {
+  for (const scheduleHandler of scheduleHandlers.values()) {
     const handler = scheduleHandler.target[scheduleHandler.key].bind(
       scheduleHandler.target
     ) as () => Promise<void> | void;
@@ -74,7 +66,6 @@ function useSchedules(cronService: any) {
 
 // @QueueJob
 
-const sQueueJobHandlers = Symbol('QueueJobHandlers');
 type QueueJobHandler = {
   delayMs: number;
   target: Object;
@@ -82,37 +73,26 @@ type QueueJobHandler = {
 };
 
 export function QueueJob(delayMs: number) {
-  return function (
-    target: Object,
-    key: string | symbol,
-    descriptor: PropertyDescriptor
-  ) {
-    if (!Reflect.hasMetadata(sQueueJobHandlers, target)) {
-      Reflect.defineMetadata(sQueueJobHandlers, [], target);
-    }
-
-    const queueJobHandlers = Reflect.getMetadata(
-      sQueueJobHandlers,
-      target
-    ) as QueueJobHandler[];
-    queueJobHandlers.push({
+  return function (target: Object, key: string | symbol) {
+    metadata.set([target.constructor, sQueueJobHandlers, key], {
       delayMs,
       target,
       key,
-    });
+    } as QueueJobHandler);
   } as MethodDecorator;
 }
 
 function useQueueJobs(cronService: any) {
-  const queueJobHandlers = Reflect.getMetadata(
+  const queueJobHandlers = metadata.get([
+    cronService.constructor,
     sQueueJobHandlers,
-    cronService
-  ) as QueueJobHandler[];
-  if (!queueJobHandlers || queueJobHandlers.length === 0) {
+  ]) as Map<string, QueueJobHandler>;
+
+  if (!queueJobHandlers || queueJobHandlers.size === 0) {
     return;
   }
 
-  for (const queueJobHandler of queueJobHandlers) {
+  for (const queueJobHandler of queueJobHandlers.values()) {
     const handler = queueJobHandler.target[queueJobHandler.key].bind(
       queueJobHandler.target
     ) as () => Promise<void> | void;
@@ -138,6 +118,10 @@ function useQueueJobs(cronService: any) {
 // CronService metadata parsers
 
 export function useCronService<T>(cronService: Object) {
+  if (!metadata.has([cronService.constructor, sCron])) {
+    return;
+  }
+
   useSchedules(cronService);
   useQueueJobs(cronService);
 }

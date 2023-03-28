@@ -18,7 +18,7 @@
       "@lib/*": ["src/lib/*"],
       "@db/*": ["src/db/*"],
       "@modules/*": ["src/modules/*"],
-      "#grpc/*": ["src/grpc/*"]
+      "#grpc/*": ["grpc/_types/*"]
     }
   },
   "exclude": ["node_modules"],

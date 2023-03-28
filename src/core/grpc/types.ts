@@ -36,7 +36,6 @@ export type GrpcCallHandler = {
 export type GrpcServiceMeta = {
   serviceName: string;
   protoFile: string;
-  middlewares?: GrpcMiddleware[];
 };
 
 export enum GrpcCallType {

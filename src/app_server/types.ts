@@ -1,5 +1,5 @@
+import { Ctx } from '@core/http/types';
 import express from 'express';
-import { Ctx } from '@core/router/router';
 
 export type AppReq = express.Request & {
   user: {

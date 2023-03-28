@@ -1,42 +1,36 @@
 import { resolve } from 'path';
-import { GRPCall, GrpcCallType, GrpcMiddleware } from './types';
+import {
+  GRPCall,
+  GrpcCallType,
+  GrpcMiddleware,
+  GrpcServiceMeta,
+} from './types';
+import { metadata } from '@core/metadata';
 
 // GrpcService decorator
-export const sGrpcService = Symbol('sGrpcService');
+export const sGrpcServiceBase = Symbol('sGrpcServiceBase');
+export const sGrpcServiceMiddlewares = Symbol('sGrpcServiceMiddlewares');
+export const sGrpcServiceCalls = Symbol('sGrpcServiceCalls');
+
 export function GrpcService(protoFileName: string, serviceName: string) {
   return function (target: Function) {
     const protoFile = resolve(process.cwd(), 'grpc', protoFileName);
 
-    if (!Reflect.hasMetadata(sGrpcService, target)) {
-      Reflect.defineMetadata(sGrpcService, {}, target);
-    }
-    const gRpcServiceMeta = Reflect.getMetadata(sGrpcService, target);
-
-    gRpcServiceMeta.serviceName = serviceName;
-    gRpcServiceMeta.protoFile = protoFile;
-  } as ClassDecorator;
-}
-
-// GrpcServiceMiddlewares decorator
-export function GrpcServiceMiddlewares(middlewares: GrpcMiddleware[]) {
-  return function (target: Function) {
-    if (!Reflect.hasMetadata(sGrpcService, target)) {
-      Reflect.defineMetadata(sGrpcService, {}, target);
-    }
-    const gRpcServiceMeta = Reflect.getMetadata(sGrpcService, target);
-
-    gRpcServiceMeta.middlewares = middlewares;
+    metadata.set([target, sGrpcServiceBase], {
+      serviceName,
+      protoFile,
+    } as GrpcServiceMeta);
   } as ClassDecorator;
 }
 
 // GrpcCall's decorators
-export const sGrpcCall = Symbol('gRPC_Call');
+export const sGrpcCallBase = Symbol('gRPC_Call');
+export const sGrpcCallMiddlewares = Symbol('gRPC_CallMiddlewares');
 
 function GrpcBaseDecorator(
   type: GrpcCallType,
   params?: {
     callName?: string;
-    middlewares?: GrpcMiddleware[];
   }
 ) {
   return function (
@@ -54,39 +48,38 @@ function GrpcBaseDecorator(
       throw new Error('no value for call name');
     }
 
-    if (!Reflect.hasMetadata(sGrpcCall, target)) {
-      Reflect.defineMetadata(sGrpcCall, [], target);
-    }
-
-    const calls = Reflect.getMetadata(sGrpcCall, target) as GRPCall[];
-    calls.push({
+    metadata.set([target.constructor, sGrpcServiceCalls, key, sGrpcCallBase], {
       callName,
       type,
       key,
-      middlewares: params.middlewares || [],
-    });
-
-    return descriptor;
+    } as GRPCall);
   } as MethodDecorator;
 }
 
-export function GrpcMethod(params?: {
-  callName?: string;
-  middlewares?: GrpcMiddleware[];
-}) {
-  return GrpcBaseDecorator(GrpcCallType.Method, params);
+export function GrpcMethod(callName?: string) {
+  return GrpcBaseDecorator(GrpcCallType.Method, { callName });
 }
 
-export function GrpcStreamMethod(params?: {
-  callName?: string;
-  middlewares?: GrpcMiddleware[];
-}) {
-  return GrpcBaseDecorator(GrpcCallType.StreamMethod, params);
+export function GrpcStreamMethod(callName?: string) {
+  return GrpcBaseDecorator(GrpcCallType.StreamMethod, { callName });
 }
 
-export function GrpcStreamCall(params?: {
-  callName?: string;
-  middlewares?: GrpcMiddleware[];
-}) {
-  return GrpcBaseDecorator(GrpcCallType.StreamCall, params);
+export function GrpcStreamCall(callName?: string) {
+  return GrpcBaseDecorator(GrpcCallType.StreamCall, { callName });
+}
+
+// GrpcMiddlewares decorator
+export function GrpcMiddlewares(middlewares: GrpcMiddleware[]) {
+  return function (target: any, key?: string | symbol) {
+    if (key) {
+      // method decorator
+      metadata.set(
+        [target.constructor, sGrpcServiceCalls, key, sGrpcCallMiddlewares],
+        middlewares
+      );
+    } else {
+      // class decorator
+      metadata.set([target, sGrpcServiceMiddlewares], middlewares);
+    }
+  };
 }

@@ -1,6 +1,6 @@
-import 'reflect-metadata';
 import { onAppStart, parseItemForGRPC } from './grpc/server';
 import { defineModule, ModuleSetup, modules } from './module';
+import { useCronService } from './cron';
 
 function listenExit() {
   async function exitHandler(options, exitCode) {
@@ -42,7 +42,7 @@ export function defineApplication<T>(setup: ModuleSetup<T>) {
   const appModule = defineModule(setup);
 
   async function run() {
-    listenExit();
+    // listenExit();
 
     for (const moduleWrap of modules) {
       for (const moduleItem of moduleWrap.meta.items) {
@@ -56,6 +56,7 @@ export function defineApplication<T>(setup: ModuleSetup<T>) {
 
       moduleWrap.meta.items.forEach((item) => {
         parseItemForGRPC(item);
+        useCronService(item);
       });
     }
 

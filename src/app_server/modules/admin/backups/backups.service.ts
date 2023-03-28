@@ -4,9 +4,9 @@ import AdmZip from 'adm-zip';
 import moment from 'moment';
 import { useEnv } from '@lib/env/env';
 import { sh } from '@lib/sh';
-import { HttpException } from '@core/router';
 import { useRedis } from '@lib/redis';
 import { useClusterStuff } from '@lib/cache/cluster-stuff';
+import { HttpException } from '@core/http';
 
 const env = useEnv();
 

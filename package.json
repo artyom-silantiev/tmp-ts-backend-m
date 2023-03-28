@@ -11,10 +11,10 @@
     "prod:server": "node dist/one.js",
     "build:server": "BUILD_APP=one tsup-node --config tsup.config.ts",
     "": "",
+    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=grpc/_types/ grpc/**/*.proto",
     "deploy": "prisma migrate dev && yarn seeder",
     "migrate_dev": "prisma migrate dev",
     "migrate_prod": "npx prisma generate && prisma migrate deploy",
-    "gen-grpc-types": "npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=src/grpc/ grpc/**/*.proto",
     "CLI": "echo 'CLI'",
     "seeder": "ts-node -r tsconfig-paths/register src/cli/seeder.ts",
     "send_test_email": "ts-node -r tsconfig-paths/register src/cli/send_test_email.ts"

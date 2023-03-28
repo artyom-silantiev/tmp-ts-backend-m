@@ -1,4 +1,4 @@
-import { HttpException } from '@core/router';
+import { HttpException } from '@core/http';
 import { PrismaService } from '@db/prisma.service';
 import { File, FileRef } from '@prisma/client';
 

@@ -1,4 +1,3 @@
-import { HttpException, HttpStatus } from '@core/router';
 import { PrismaService } from '@db/prisma.service';
 import { UserRepository } from '@db/repositories/user.repository';
 import { useBcrypt } from '@lib/bcrypt';
@@ -7,6 +6,7 @@ import { ExErrors } from '@lib/ex_errors.type';
 import { JwtUserAuthService } from '@modules/jwt/jwt-user-auth.service';
 import { User } from '@prisma/client';
 import { JwtUser } from './types';
+import { HttpException, HttpStatus } from '@core/http';
 
 export class AuthService {
   private bcrypt = useBcrypt();

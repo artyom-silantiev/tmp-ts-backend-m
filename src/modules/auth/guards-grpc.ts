@@ -1,9 +1,10 @@
 import { AuthModule } from './auth.module';
 import { UserRole } from '@prisma/client';
 import { GrpcMiddleware } from '@core/grpc/types';
-import { GrpcException } from '@core/grpc/catch_grpc_error';
 import * as grpc from '@grpc/grpc-js';
 import { JwtUser } from './types';
+import { GrpcMiddlewares } from '@core/grpc/decorators';
+import { GrpcException } from '@core/grpc/exception';
 
 export const GrpcMetaUserKey = 'GrpcMetaUserKey';
 
@@ -25,7 +26,7 @@ const authMiddleware: GrpcMiddleware = async (req: any, metadata) => {
 };
 
 export function AuthGuardGrpc() {
-  return [authMiddleware];
+  return GrpcMiddlewares([authMiddleware]);
 }
 
 export function RoleGuardGrpc(needRole: UserRole) {
@@ -37,5 +38,5 @@ export function RoleGuardGrpc(needRole: UserRole) {
     }
   };
 
-  return [authMiddleware, roleGuardMiddleware];
+  return GrpcMiddlewares([authMiddleware, roleGuardMiddleware]);
 }

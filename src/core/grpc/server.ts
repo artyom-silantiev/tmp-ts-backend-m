@@ -1,8 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-import { catchGrpcException } from './catch_grpc_error';
+import { catchGrpcException } from './exception';
 import { createLogger } from '../logger';
-import { sGrpcCall, sGrpcService } from './decorators';
 import {
   GRPCall,
   GrpcCallType,
@@ -10,20 +9,71 @@ import {
   GrpcMetadata,
   GrpcMiddleware,
 } from './types';
+import {
+  sGrpcCallBase,
+  sGrpcCallMiddlewares,
+  sGrpcServiceBase,
+  sGrpcServiceMiddlewares,
+  sGrpcServiceCalls,
+} from './decorators';
+import { metadata } from '@core/metadata';
 
 let grpcServer: grpc.Server;
 let globalMiddlewares = [] as GrpcMiddleware[];
 const logger = createLogger('gRPC');
 
-export function parseItemForGRPC(item: any) {
-  const grpc = Reflect.getMetadata(
-    sGrpcService,
-    item.constructor
-  ) as GrpcServiceMeta;
-  if (grpc) {
-    const calls = Reflect.getMetadata(sGrpcCall, item);
-    useGrpcService(grpc, item, calls);
+export function parseItemForGRPC(grpcService: any) {
+  const grpcServiceMeta = metadata.get([
+    grpcService.constructor,
+    sGrpcServiceBase,
+  ]) as GrpcServiceMeta;
+
+  if (!grpcServiceMeta) {
+    return;
   }
+
+  const grpcServiceCalls = metadata.get([
+    grpcService,
+    sGrpcServiceCalls,
+  ]) as Map<string, Map<symbol, any>>;
+  const grpcServiceMiddlewares = metadata.get([
+    grpcService,
+    sGrpcServiceMiddlewares,
+  ]) as GrpcMiddleware[];
+
+  let calls = [] as GRPCall[];
+  if (grpcServiceCalls) {
+    for (const key of grpcServiceCalls.keys()) {
+      const grpcCall = metadata.get([
+        grpcService,
+        sGrpcServiceCalls,
+        key,
+        sGrpcCallBase,
+      ]) as GRPCall;
+
+      const grpcCallMiddlewares = metadata.get([
+        grpcService,
+        sGrpcServiceCalls,
+        key,
+        sGrpcCallMiddlewares,
+      ]) as GrpcMiddleware[];
+
+      if (grpcCall) {
+        if (grpcCallMiddlewares) {
+          grpcCall.middlewares = grpcCallMiddlewares;
+        }
+
+        calls.push(grpcCall);
+      }
+    }
+  }
+
+  useGrpcService(
+    grpcServiceMeta,
+    grpcService,
+    grpcServiceMiddlewares || [],
+    calls
+  );
 }
 
 export function onAppStart() {
@@ -43,6 +93,7 @@ export function onAppStart() {
 function useGrpcService<T>(
   grpcServiceMeta: GrpcServiceMeta,
   service: any,
+  serviceMiddlewares: GrpcMiddleware[],
   calls: GRPCall[]
 ) {
   if (!grpcServer) {
@@ -57,7 +108,6 @@ function useGrpcService<T>(
     oneofs: true,
   } as protoLoader.Options;
   const { protoFile, serviceName } = grpcServiceMeta;
-  const serviceMiddlewares = grpcServiceMeta.middlewares;
 
   const packageDefinition = protoLoader.loadSync(protoFile, options);
   const proto = grpc.loadPackageDefinition(packageDefinition) as any;

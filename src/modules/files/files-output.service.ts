@@ -3,13 +3,12 @@ import { FilesMakeService } from './files-make.service';
 import { File, MediaType } from '@prisma/client';
 import { FileRepository } from '@db/repositories/file.repository';
 import { PrismaService } from '@db/prisma.service';
-import * as _ from 'lodash';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import { FilesDefs } from './defs';
 import { useEnv } from '@lib/env/env';
 import { useCacheFiles } from '@lib/cache/local-file';
-import { HttpException } from '@core/router';
+import { HttpException } from '@core/http';
 
 export type FileMeta = {
   absPathToFile: string;
