@@ -10,10 +10,9 @@ import {
   GrpcMiddleware,
 } from './types';
 import {
-  sGrpcCallBase,
-  sGrpcCallMiddlewares,
-  sGrpcServiceBase,
-  sGrpcServiceMiddlewares,
+  sGrpcCall,
+  sGrpcService,
+  sGrpcMiddlewares,
   sGrpcServiceCalls,
 } from './decorators';
 import { metadata } from '@core/metadata';
@@ -25,7 +24,7 @@ const logger = createLogger('gRPC');
 export function parseItemForGRPC(grpcService: any) {
   const grpcServiceMeta = metadata.get([
     grpcService.constructor,
-    sGrpcServiceBase,
+    sGrpcService,
   ]) as GrpcServiceMeta;
 
   if (!grpcServiceMeta) {
@@ -38,25 +37,15 @@ export function parseItemForGRPC(grpcService: any) {
   ]) as Map<string, Map<symbol, any>>;
   const grpcServiceMiddlewares = metadata.get([
     grpcService,
-    sGrpcServiceMiddlewares,
+    sGrpcMiddlewares,
   ]) as GrpcMiddleware[];
 
   let calls = [] as GRPCall[];
   if (grpcServiceCalls) {
-    for (const key of grpcServiceCalls.keys()) {
-      const grpcCall = metadata.get([
-        grpcService,
-        sGrpcServiceCalls,
-        key,
-        sGrpcCallBase,
-      ]) as GRPCall;
+    for (const [key, map] of grpcServiceCalls) {
+      const grpcCall = map.get(sGrpcCall) as GRPCall;
 
-      const grpcCallMiddlewares = metadata.get([
-        grpcService,
-        sGrpcServiceCalls,
-        key,
-        sGrpcCallMiddlewares,
-      ]) as GrpcMiddleware[];
+      const grpcCallMiddlewares = map.get(sGrpcMiddlewares) as GrpcMiddleware[];
 
       if (grpcCall) {
         if (grpcCallMiddlewares) {

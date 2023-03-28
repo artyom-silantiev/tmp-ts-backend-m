@@ -7,16 +7,19 @@ import {
 } from './types';
 import { metadata } from '@core/metadata';
 
-// GrpcService decorator
-export const sGrpcServiceBase = Symbol('sGrpcServiceBase');
-export const sGrpcServiceMiddlewares = Symbol('sGrpcServiceMiddlewares');
+// symbols
+export const sGrpcMiddlewares = Symbol('sGrpcMiddlewares');
+export const sGrpcService = Symbol('sGrpcService');
 export const sGrpcServiceCalls = Symbol('sGrpcServiceCalls');
+export const sGrpcCall = Symbol('sGrpcCall');
+
+// GrpcService decorator
 
 export function GrpcService(protoFileName: string, serviceName: string) {
   return function (target: Function) {
     const protoFile = resolve(process.cwd(), 'grpc', protoFileName);
 
-    metadata.set([target, sGrpcServiceBase], {
+    metadata.set([target, sGrpcService], {
       serviceName,
       protoFile,
     } as GrpcServiceMeta);
@@ -24,8 +27,6 @@ export function GrpcService(protoFileName: string, serviceName: string) {
 }
 
 // GrpcCall's decorators
-export const sGrpcCallBase = Symbol('gRPC_Call');
-export const sGrpcCallMiddlewares = Symbol('gRPC_CallMiddlewares');
 
 function GrpcBaseDecorator(
   type: GrpcCallType,
@@ -48,7 +49,7 @@ function GrpcBaseDecorator(
       throw new Error('no value for call name');
     }
 
-    metadata.set([target.constructor, sGrpcServiceCalls, key, sGrpcCallBase], {
+    metadata.set([target.constructor, sGrpcServiceCalls, key, sGrpcCall], {
       callName,
       type,
       key,
@@ -74,12 +75,12 @@ export function GrpcMiddlewares(middlewares: GrpcMiddleware[]) {
     if (key) {
       // method decorator
       metadata.set(
-        [target.constructor, sGrpcServiceCalls, key, sGrpcCallMiddlewares],
+        [target.constructor, sGrpcServiceCalls, key, sGrpcMiddlewares],
         middlewares
       );
     } else {
       // class decorator
-      metadata.set([target, sGrpcServiceMiddlewares], middlewares);
+      metadata.set([target, sGrpcMiddlewares], middlewares);
     }
   };
 }
