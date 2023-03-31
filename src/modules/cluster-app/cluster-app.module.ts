@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import { ClusterAppService } from './cluster-app.service';
 
 export const ClusterAppModule = defineModule((ctx) => {

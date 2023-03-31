@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import { SendEmailService } from './send-email.service';
 import { AppMailerService } from './app-mailer.service';
 import { DbModule } from '@db/db.module';

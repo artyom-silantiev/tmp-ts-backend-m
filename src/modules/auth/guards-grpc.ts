@@ -1,10 +1,10 @@
 import { AuthModule } from './auth.module';
 import { UserRole } from '@prisma/client';
-import { GrpcMiddleware } from '@core/grpc/types';
+import { GrpcMiddleware } from 'minimal2b/grpc/types';
 import * as grpc from '@grpc/grpc-js';
 import { JwtUser } from './types';
-import { GrpcMiddlewares } from '@core/grpc/decorators';
-import { GrpcException } from '@core/grpc/exception';
+import { GrpcMiddlewares } from 'minimal2b/grpc/decorators';
+import { GrpcException } from 'minimal2b/grpc/exception';
 
 export const GrpcMetaUserKey = 'GrpcMetaUserKey';
 

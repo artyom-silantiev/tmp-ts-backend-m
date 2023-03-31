@@ -1,4 +1,4 @@
-import { defineApplication } from '@core/application';
+import { defineApplication } from 'minimal2b/application';
 import { AppMailerModule } from '@modules/app-mailer/app-mailer.module';
 
 defineApplication((ctx) => {

@@ -1,4 +1,4 @@
-import { Ctx } from '@core/http/types';
+import { Ctx } from 'minimal2b/http/types';
 import express from 'express';
 
 export type AppReq = express.Request & {

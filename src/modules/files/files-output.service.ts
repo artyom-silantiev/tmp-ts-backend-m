@@ -8,7 +8,7 @@ import * as fs from 'fs-extra';
 import { FilesDefs } from './defs';
 import { useEnv } from '@lib/env/env';
 import { useCacheFiles } from '@lib/cache/local-file';
-import { HttpException } from '@core/http';
+import { HttpException } from 'minimal2b/http';
 
 export type FileMeta = {
   absPathToFile: string;

@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import { DbModule } from '@db/db.module';
 import { ClearDataService } from './clear-data.service';
 

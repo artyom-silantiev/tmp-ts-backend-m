@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import { BackupsGrpc } from './backups.grpc';
 import { BackupsService } from './backups.service';
 

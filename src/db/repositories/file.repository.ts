@@ -1,4 +1,4 @@
-import { HttpException } from '@core/http';
+import { HttpException } from 'minimal2b/http';
 import { PrismaService } from '@db/prisma.service';
 import { File, FileRef } from '@prisma/client';
 

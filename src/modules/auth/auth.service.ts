@@ -6,7 +6,7 @@ import { ExErrors } from '@lib/ex_errors.type';
 import { JwtUserAuthService } from '@modules/jwt/jwt-user-auth.service';
 import { User } from '@prisma/client';
 import { JwtUser } from './types';
-import { HttpException, HttpStatus } from '@core/http';
+import { HttpException, HttpStatus } from 'minimal2b/http';
 
 export class AuthService {
   private bcrypt = useBcrypt();

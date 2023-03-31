@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import { AuthService } from './auth.service';
 import { DbModule } from '@db/db.module';
 import { JwtModule } from '@modules/jwt/jwt.module';

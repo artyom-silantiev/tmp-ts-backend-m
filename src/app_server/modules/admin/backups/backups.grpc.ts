@@ -1,4 +1,4 @@
-import { GrpcMethod, GrpcService } from '@core/grpc/decorators';
+import { GrpcMethod, GrpcService } from 'minimal2b/grpc/decorators';
 import { BackupsService } from './backups.service';
 import { BackupName__Output } from '#grpc/admin/BackupName';
 import { Message__Output } from '#grpc/common/Message';

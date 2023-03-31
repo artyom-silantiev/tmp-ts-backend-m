@@ -4,8 +4,7 @@ import { TaskType } from '@prisma/client';
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import Handlebars from 'handlebars';
-import { Cron } from '@core/cron';
-import { QueueJob } from '@core/cron';
+import { Cron, QueueJob } from 'minimal2b/schedule';
 import * as fs from 'fs-extra';
 
 const env = useEnv();

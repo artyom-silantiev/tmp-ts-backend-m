@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { Controller, Ctx, Get, Head } from '@core/router';
+import { Controller, Ctx, Get, Head } from 'minimal2b/http';
 import {
   FileMeta,
   FilesOutputService,

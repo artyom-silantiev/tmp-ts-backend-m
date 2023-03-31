@@ -1,4 +1,4 @@
-import { Route } from '@core/http/types';
+import { Route } from 'minimal2b/http/types';
 import { FilesHttpModule } from './modules/files/files.module';
 
 export default [

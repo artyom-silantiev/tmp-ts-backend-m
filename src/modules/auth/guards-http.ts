@@ -1,8 +1,13 @@
 import { JwtUser } from './types';
 import { AuthModule } from './auth.module';
 import { UserRole } from '@prisma/client';
-import { HttpException, HttpMiddlewares, HttpStatus } from '@core/http';
-import { Ctx, CtxHandler } from '@core/http/types';
+import {
+  HttpException,
+  HttpMiddlewares,
+  HttpStatus,
+  Ctx,
+  CtxHandler,
+} from 'minimal2b/http';
 
 export type CtxWithUser = Ctx & {
   user: JwtUser;

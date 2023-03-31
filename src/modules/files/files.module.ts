@@ -2,7 +2,7 @@ import { DbModule } from '@db/db.module';
 import { FilesInputService } from './files-input.service';
 import { FilesMakeService } from './files-make.service';
 import { FilesOutputService } from './files-output.service';
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 
 export const FilesModule = defineModule((ctx) => {
   const filesMakeService = new FilesMakeService(DbModule.prisma, DbModule.file);

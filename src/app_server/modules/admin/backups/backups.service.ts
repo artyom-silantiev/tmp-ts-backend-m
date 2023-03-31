@@ -6,7 +6,7 @@ import { useEnv } from '@lib/env/env';
 import { sh } from '@lib/sh';
 import { useRedis } from '@lib/redis';
 import { useClusterStuff } from '@lib/cache/cluster-stuff';
-import { HttpException } from '@core/http';
+import { HttpException } from 'minimal2b/http';
 
 const env = useEnv();
 

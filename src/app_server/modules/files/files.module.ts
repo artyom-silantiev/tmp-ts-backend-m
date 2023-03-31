@@ -1,6 +1,6 @@
 import { FilesModule } from '@modules/files/files.module';
 import { FilesController } from './files.controller';
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 
 export const FilesHttpModule = defineModule((ctx) => {
   const filesControoler = new FilesController(FilesModule.filesOutputService);

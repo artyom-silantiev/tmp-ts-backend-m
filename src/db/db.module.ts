@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import { PrismaService } from './prisma.service';
 import { FileRefRepository } from './repositories/file_ref.repository';
 import { FileRepository } from './repositories/file.repository';

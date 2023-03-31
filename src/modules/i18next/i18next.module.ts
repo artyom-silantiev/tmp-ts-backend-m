@@ -1,4 +1,4 @@
-import { defineModule } from '@core/module';
+import { defineModule } from 'minimal2b/module';
 import i18next, { TFunction } from 'i18next';
 
 import en from 'assets/i18next/en';

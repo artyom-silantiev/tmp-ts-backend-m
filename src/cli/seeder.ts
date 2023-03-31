@@ -1,4 +1,4 @@
-import { defineApplication } from '@core/application';
+import { defineApplication } from 'minimal2b/application';
 import { DbModule } from '@db/db.module';
 import { PrismaService } from '@db/prisma.service';
 import { UserRepository, UserViewType } from '@db/repositories/user.repository';
