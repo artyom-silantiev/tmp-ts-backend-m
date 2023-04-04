@@ -4,7 +4,7 @@ import { useEnv } from '@lib/env/env';
 import routes from './routes';
 import express from 'express';
 import { defineApplication } from 'minimal2b/application';
-import { catchHttpException, initAppRouter } from 'minimal2b/http';
+import { catchHttpException } from 'minimal2b/http';
 
 const logger = createAppLogger('App');
 
@@ -14,7 +14,7 @@ const application = defineApplication((ctx) => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  initAppRouter(app, routes);
+  ctx.initRoutes(app, routes);
   app.use(catchHttpException);
 
   ctx.onModuleInit(() => {

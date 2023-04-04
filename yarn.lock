@@ -990,10 +990,10 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cron@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/cron/-/cron-2.2.0.tgz#605ae5048e9715a22db12e9fe2563a92740b9fed"
-  integrity sha512-GPiI3OgMv83XRtEUc2gUdaLvJhO3XbLN288layOBkDTupg0RK5IECNGpkykIMHg+muVR2bxt29b0xvCAcBrjYQ==
+cron@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/cron/-/cron-2.3.0.tgz#20df6da18d4f7d2f8937def2eb5fc0d1a320c526"
+  integrity sha512-ZN5HP8zDY41sJolMsbc+GksRATcbvkPKF5wR/qc8FrV4NBVi9ORQa1HmYa5GydaysUB80X9XpRlRkooa5uEtTA==
   dependencies:
     luxon "^3.2.1"
 
@@ -2000,15 +2000,15 @@ mimic-response@^3.1.0:
   resolved "https://registry.yarnpkg.com/mimic-response/-/mimic-response-3.1.0.tgz#2d1d59af9c1b129815accc2c46a022a5ce1fa3c9"
   integrity sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==
 
-minimal2b@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/minimal2b/-/minimal2b-0.1.3.tgz#0f6e0fa837ead77c58ee1892e752a2463e0dbf48"
-  integrity sha512-oj2gHWq5AYKKgD9tXCJU/wTgfSZgGchyXzdmgEj8WTg/jPrC2CgL5hQ2zeRLsNoN+9wypwdrNOfXjoJuEO11IA==
+minimal2b@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/minimal2b/-/minimal2b-0.1.4.tgz#3844b4279f754314fc62b7f8c6bec57647a56d29"
+  integrity sha512-P74TFie3Fr4Yl8nK6i3elxO0uYadLK7bSOynbpU31g/6fnN7gh9/Jn5YqtYTs7cXgOiwSNGDCjPP+LUUmMfMbQ==
   dependencies:
     "@grpc/grpc-js" "^1.8.13"
     body-parser "^1.20.2"
     class-validator "^0.14.0"
-    cron "^2.2.0"
+    cron "^2.3.0"
     express "^4.18.2"
     moment "^2.29.4"
 
