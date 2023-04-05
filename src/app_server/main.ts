@@ -14,8 +14,7 @@ const application = defineApplication((ctx) => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  ctx.initRoutes(app, routes);
-  app.use(catchHttpException);
+  ctx.initHttpRoutes(app, routes);
 
   ctx.onModuleInit(() => {
     app.listen(env.NODE_PORT, () => {
