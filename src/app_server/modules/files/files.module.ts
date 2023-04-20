@@ -3,7 +3,7 @@ import { FilesController } from './files.controller';
 import { defineModule } from 'minimal2b/module';
 
 export const FilesHttpModule = defineModule((ctx) => {
-  const filesControoler = new FilesController(FilesModule.filesOutputService);
+  const filesController = new FilesController(FilesModule.filesOutputService);
 
-  return ctx.useItems({ filleControoler: filesControoler });
+  return ctx.useItems({ filesController });
 });

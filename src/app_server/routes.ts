@@ -4,6 +4,6 @@ import { FilesHttpModule } from './modules/files/files.module';
 export default [
   {
     path: 'files',
-    controller: FilesHttpModule.filleControoler,
+    controller: FilesHttpModule.filesController,
   },
 ] as Route[];
