@@ -5,7 +5,7 @@ import * as grpc from '@grpc/grpc-js';
 import { JwtUser } from './types';
 import { GrpcMiddlewares } from 'minimal2b/grpc/decorators';
 import { GrpcException } from 'minimal2b/grpc/exception';
-import { AppUserKey } from 'src/app_server/types';
+import { AppUser, AppUserKey } from 'src/app_server/types';
 
 const authMiddleware: GrpcMiddleware = async (ctx: CtxGrpc) => {
   const accessToken = ctx.metadata.get('access-token')[0] as string;
@@ -16,7 +16,7 @@ const authMiddleware: GrpcMiddleware = async (ctx: CtxGrpc) => {
 
   try {
     const jwtUser = await AuthModule.authService.cheackAccessToken(accessToken);
-    ctx.set(AppUserKey, jwtUser);
+    ctx.set(AppUserKey, jwtUser as AppUser);
   } catch (error) {
     throw new GrpcException('Forbidden', grpc.status.UNAUTHENTICATED);
   }
@@ -28,7 +28,7 @@ export function AuthGuardGrpc() {
 
 export function RoleGuardGrpc(needRole: UserRole) {
   const roleGuardMiddleware: GrpcMiddleware = (ctx: CtxGrpc) => {
-    const user = ctx.get(AppUserKey) as JwtUser;
+    const user = ctx.get(AppUserKey) as AppUser;
 
     if (!user || user.role !== needRole) {
       throw new GrpcException('Forbidden', grpc.status.UNAUTHENTICATED);
