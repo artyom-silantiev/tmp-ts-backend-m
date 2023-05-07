@@ -5,15 +5,12 @@ import {
   HttpException,
   HttpMiddlewares,
   HttpStatus,
-  Ctx,
   CtxHandler,
+  CtxHttp,
 } from 'minimal2b/http';
+import { AppUserKey } from 'src/app_server/types';
 
-export type CtxWithUser = Ctx & {
-  user: JwtUser;
-};
-
-const authMiddleware: CtxHandler = async (ctx: CtxWithUser) => {
+const authMiddleware: CtxHandler = async (ctx: CtxHttp) => {
   const bearerHeader = ctx.headers.authorization;
   const accessToken = bearerHeader && bearerHeader.split(' ')[1];
 
@@ -24,7 +21,7 @@ const authMiddleware: CtxHandler = async (ctx: CtxWithUser) => {
   let jwtUser!: JwtUser;
   try {
     jwtUser = await AuthModule.authService.cheackAccessToken(accessToken);
-    ctx.user = jwtUser;
+    ctx.set(AppUserKey, jwtUser);
   } catch (error) {
     throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
@@ -37,8 +34,9 @@ export function AuthGuardHttp() {
 }
 
 export function RoleGuardHttp(needRole: UserRole) {
-  const roleGuardMiddleware: CtxHandler = (ctx: CtxWithUser) => {
-    if (!ctx.user || ctx.user.role !== needRole) {
+  const roleGuardMiddleware: CtxHandler = (ctx: CtxHttp) => {
+    const user = ctx.get(AppUserKey);
+    if (!user || user.role !== needRole) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
 

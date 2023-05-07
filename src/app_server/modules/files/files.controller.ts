@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { Controller, Ctx, Get, Head } from 'minimal2b/http';
+import { Controller, CtxHttp, Get, Head } from 'minimal2b/http';
 import {
   FileMeta,
   FilesOutputService,
@@ -122,7 +122,7 @@ export class FilesController {
   }
 
   @Head(':uid')
-  async headByUid(ctx: Ctx) {
+  async headByUid(ctx: CtxHttp) {
     const uid = ctx.req.params['uid'];
     const query = ctx.req.query as { [key: string]: string };
     const fileRefRequest = this.parseUid(uid, query);
@@ -137,7 +137,7 @@ export class FilesController {
   }
 
   @Get(':uid')
-  async getByUid(ctx: Ctx) {
+  async getByUid(ctx: CtxHttp) {
     const uid = ctx.params['uid'];
     const query = ctx.query as { [key: string]: string };
     const fileRefRequest = this.parseUid(uid, query);
@@ -153,7 +153,7 @@ export class FilesController {
   }
 
   @Head(':uid/:args')
-  async headBySha256AndArgs(ctx: Ctx) {
+  async headBySha256AndArgs(ctx: CtxHttp) {
     const uid = ctx.params['uid'];
     const args = ctx.params['args'];
     const query = ctx.query as { [key: string]: string };
@@ -173,7 +173,7 @@ export class FilesController {
   }
 
   @Get(':uid/:args')
-  async getBySha256AndArgs(ctx: Ctx) {
+  async getBySha256AndArgs(ctx: CtxHttp) {
     const uid = ctx.params['uid'];
     const args = ctx.params['args'];
     const query = ctx.query as { [key: string]: string };

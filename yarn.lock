@@ -158,10 +158,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.38.0.tgz#73a8a0d8aa8a8e6fe270431c5e72ae91b5337892"
   integrity sha512-IoD2MfUnOV58ghIHCiil01PcohxjbYR/qCxsoC+xNgUwh1EY8jOOrYmu3d3a71+tJJ23uscEV4X2HJWMsPJu4g==
 
-"@grpc/grpc-js@^1.8.13":
-  version "1.8.13"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.13.tgz#e775685962909b76f8d4b813833c3d123867165b"
-  integrity sha512-iY3jsdfbc0ARoCLFvbvUB8optgyb0r1XLPb142u+QtgBcKJYkCIFt3Fd/881KqjLYWjsBJF57N3b8Eop9NDfUA==
+"@grpc/grpc-js@^1.8.14":
+  version "1.8.14"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.14.tgz#4fe0f9917d6f094cf59245763c275442b182e9ad"
+  integrity sha512-w84maJ6CKl5aApCMzFll0hxtFNT6or9WwMslobKaqWUEf1K+zhlL43bSQhFreyYWIWR+Z0xnVFC1KtLm4ZpM/A==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -2005,12 +2005,12 @@ mimic-response@^3.1.0:
   resolved "https://registry.yarnpkg.com/mimic-response/-/mimic-response-3.1.0.tgz#2d1d59af9c1b129815accc2c46a022a5ce1fa3c9"
   integrity sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==
 
-minimal2b@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/minimal2b/-/minimal2b-0.1.7.tgz#7ad4b5db92a82981c46ac059498e3db9f06bb88a"
-  integrity sha512-XfO7qsMLelS+gaXQocglvGH5JAmyoTHGRX9Vk4bFA4IA6cCCiig0lhh4w3xsbBeAxLSSQhV7gbq1gAiRai2YLQ==
+minimal2b@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/minimal2b/-/minimal2b-0.1.8.tgz#92f3d4fd154fca7081232c7987bb908c9605fc13"
+  integrity sha512-mCXhLhOuw3kuDjcRcmxRKxJIrG2s+a/Y0T4RX9gl2ukasffdJGG+6mjqQjxMmvdCAm0Nt6hKbD1KkNPxvvv8jg==
   dependencies:
-    "@grpc/grpc-js" "^1.8.13"
+    "@grpc/grpc-js" "^1.8.14"
     body-parser "^1.20.2"
     class-validator "^0.14.0"
     cron "^2.3.0"

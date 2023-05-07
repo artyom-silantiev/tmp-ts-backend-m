@@ -4,6 +4,7 @@ import { useEnv } from '@lib/env/env';
 import routes from './routes';
 import express from 'express';
 import { defineApplication } from 'minimal2b/application';
+import { AppCronModule } from './app-cron.module';
 
 const logger = createAppLogger('App');
 
@@ -14,6 +15,9 @@ const application = defineApplication((ctx) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   ctx.initHttpRoutes(app, routes);
+
+  // used modules
+  AppCronModule;
 
   ctx.onModuleInit(() => {
     app.listen(env.NODE_PORT, () => {

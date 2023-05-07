@@ -1,17 +1,14 @@
 import { AuthModule } from './auth.module';
 import { UserRole } from '@prisma/client';
-import { GrpcMiddleware } from 'minimal2b/grpc/types';
+import { CtxGrpc, GrpcMiddleware } from 'minimal2b/grpc/types';
 import * as grpc from '@grpc/grpc-js';
 import { JwtUser } from './types';
 import { GrpcMiddlewares } from 'minimal2b/grpc/decorators';
 import { GrpcException } from 'minimal2b/grpc/exception';
+import { AppUserKey } from 'src/app_server/types';
 
-export const GrpcMetaUserKey = 'GrpcMetaUserKey';
-
-const authMiddleware: GrpcMiddleware = async (req: any, metadata) => {
-  metadata.get('access-token');
-
-  const accessToken = metadata.get('access-token');
+const authMiddleware: GrpcMiddleware = async (ctx: CtxGrpc) => {
+  const accessToken = ctx.metadata.get('access-token')[0] as string;
 
   if (!accessToken) {
     throw new GrpcException('Forbidden', grpc.status.UNAUTHENTICATED);
@@ -19,7 +16,7 @@ const authMiddleware: GrpcMiddleware = async (req: any, metadata) => {
 
   try {
     const jwtUser = await AuthModule.authService.cheackAccessToken(accessToken);
-    metadata.set(GrpcMetaUserKey, jwtUser);
+    ctx.set(AppUserKey, jwtUser);
   } catch (error) {
     throw new GrpcException('Forbidden', grpc.status.UNAUTHENTICATED);
   }
@@ -30,8 +27,8 @@ export function AuthGuardGrpc() {
 }
 
 export function RoleGuardGrpc(needRole: UserRole) {
-  const roleGuardMiddleware: GrpcMiddleware = (req: any, metadata) => {
-    const user = metadata.get(GrpcMetaUserKey) as JwtUser;
+  const roleGuardMiddleware: GrpcMiddleware = (ctx: CtxGrpc) => {
+    const user = ctx.get(AppUserKey) as JwtUser;
 
     if (!user || user.role !== needRole) {
       throw new GrpcException('Forbidden', grpc.status.UNAUTHENTICATED);

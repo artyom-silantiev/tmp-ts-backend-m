@@ -36,21 +36,6 @@ export class AppMailerService {
     });
   }
 
-  @QueueJob(1000 * 15)
-  private async tasksSendEmail() {
-    const taskTypes = [TaskType.SEND_EMAIL];
-    const attemptes = env.MAILER_QUEUE_ATTEMPTS;
-    const packSize = env.MAILER_QUEUE_PACK_SIZE;
-    await this.taskRepository.handleWrapPack<SendEmailParams>(
-      taskTypes,
-      attemptes,
-      async (ctx) => {
-        await this.sendEmailNow(ctx.task.data);
-      },
-      packSize
-    );
-  }
-
   private renderTemplate(params: SendEmailParams) {
     if (!params.template) {
       return;
@@ -66,7 +51,7 @@ export class AppMailerService {
     return renderResult;
   }
 
-  private async sendEmailNow(params: SendEmailParams) {
+  async sendEmailNow(params: SendEmailParams) {
     if (params.template) {
       params.html = this.renderTemplate(params);
     }
@@ -74,7 +59,7 @@ export class AppMailerService {
     return this.mailer.sendMail(params);
   }
 
-  private async sendEmailTask(params: SendEmailParams) {
+  async sendEmailTask(params: SendEmailParams) {
     await this.taskRepository.taskCreate(TaskType.SEND_EMAIL, params);
   }
 
